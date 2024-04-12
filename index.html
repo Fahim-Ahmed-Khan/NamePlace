@@ -65,6 +65,11 @@
             </div>
         </div>
     </div>
+    <div class="row justify-content-center"> <!-- Center the button -->
+        <div class="col-md-4">
+            <button class="btn btn-success mt-3 btn-block" onclick="calculatePoints()">Finish</button>
+        </div>
+    </div>
 </div>
 
 <div class="footer">
@@ -103,6 +108,16 @@
         doneCell.innerHTML = '<button class="btn btn-primary" onclick="markDone(this)">Done</button>';
         newRow.appendChild(doneCell);
         tableBody.appendChild(newRow);
+    }
+
+    function calculatePoints() {
+        const pointsCells = document.querySelectorAll('#entryTable tbody tr td:nth-child(7)');
+        let totalPoints = 0;
+        pointsCells.forEach(cell => {
+            const points = parseInt(cell.textContent.trim()) || 0;
+            totalPoints += points;
+        });
+        alert('Total Points: ' + totalPoints);
     }
 </script>
 </body>
