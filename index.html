@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="header">
+    
+    <div class="company-info">
+        <h4>Name, Place, Animal, Thing, Movie/Song</h4> 
+        <h4 id="clock">00:00:00</h4>
+    </div>
+</div>
+
+<div class="navbar">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Entry Points</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" id="entryTable">
+                            <thead>
+                                <tr>
+                                    <th>Alphabet</th>
+                                    <th>Name</th>
+                                    <th>Place</th>
+                                    <th>Animal</th>
+                                    <th>Thing</th>
+                                    <th>Movie/Song</th>
+                                    <th>Points</th>
+                                    <th>Done</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td contenteditable="true"></td>
+                                    <td contenteditable="true"></td>
+                                    <td contenteditable="true"></td>
+                                    <td contenteditable="true"></td>
+                                    <td contenteditable="true"></td>
+                                    <td contenteditable="true"></td>
+                                    <td contenteditable="true"></td>
+                                    <td><button class="btn btn-primary" onclick="markDone(this)">Done</button></td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>Made by Faheem for his Cousins <3</p>
+</div>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        let hours = now.getHours().toString().padStart(2, '0');
+        let minutes = now.getMinutes().toString().padStart(2, '0');
+        let seconds = now.getSeconds().toString().padStart(2, '0');
+        document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    function markDone(button) {
+        const row = button.closest('tr');
+        const cells = row.querySelectorAll('td[contenteditable="true"]');
+        cells.forEach(cell => {
+            cell.setAttribute('contenteditable', 'false');
+        });
+        button.setAttribute('disabled', 'true');
+
+        // Add a new editable row
+        const tableBody = document.querySelector('#entryTable tbody');
+        const newRow = document.createElement('tr');
+        for (let i = 0; i < 7; i++) {
+            const cell = document.createElement('td');
+            cell.setAttribute('contenteditable', 'true');
+            newRow.appendChild(cell);
+        }
+        const doneCell = document.createElement('td');
+        doneCell.innerHTML = '<button class="btn btn-primary" onclick="markDone(this)">Done</button>';
+        newRow.appendChild(doneCell);
+        tableBody.appendChild(newRow);
+    }
+</script>
+</body>
+</html>
